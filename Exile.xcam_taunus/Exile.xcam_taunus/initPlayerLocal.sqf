@@ -2,7 +2,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 // Static Objects
 ///////////////////////////////////////////////////////////////////////////////
-[] execVM "addons\statusBar\statusBar.sqf";
 /**
  * Created with Exile Mod 3DEN Plugin
  * www.exilemod.com
@@ -98,42 +97,3 @@ _trader switchMove (_animations select 0);
 _trader addEventHandler ["AnimDone", {_this call ExileClient_object_trader_event_onAnimationDone}];
 }
 forEach _npcs;
-
-[] spawn compile preprocessFileLineNumbers "addons\welcome\welcome.sqf";
-_bul = [] execVM "addons\blowout\module\blowout_client.sqf";
-waitUntil {!isNull findDisplay 46 && !isNil 'ExileClientLoadedIn' && getPlayerUID player != ''};
-uiSleep 120;
-execVM "announcepay.sqf";
-
-NR_fnc_SalvageVehicle = compileFinal preprocessFileLineNumbers "SalvageVehicle.sqf";
-SM_CalculateVector = compileFinal preprocessFileLineNumbers "SM_VectorBuilding\SM_CalculateVector.sqf";
-/**
- * TheForsakenSurvivors Community
- * www.theforsakensurvivors.co.uk
- * © 2016 TheForsakenSurvivors Community
- *
- * This work is property of TheForsakenSurvivors. You do not have permissions to use/edit/distribute any of this content
- * without written permission from the TheForsakenSurvivors community.
- */
-
-if (!hasInterface || isServer) exitWith {};
-
-private["_code","_function","_file"];
-{
-    _code = '';
-    _function = _x select 0;
-    _file = _x select 1;
-    _code = compileFinal (preprocessFileLineNumbers _file);
-    missionNamespace setVariable [_function, _code];
-}
-forEach
-[
-    ["SM_Paint","TFS\Paint\SM_Paint.sqf"],
-    ["SM_Paint_Finish","TFS\Paint\SM_Paint_Finish.sqf"],
-    ["SM_Paint_Config","TFS\Paint\SM_Paint_Config.sqf"],
-    ["SM_Paint_OnLBChange","TFS\Paint\SM_Paint_OnLBChange.sqf"],
-    ["SM_Paint_ChangeMode","TFS\Paint\SM_Paint_ChangeMode.sqf"]
-];
-
-[] call SM_Paint_Config;
-//Modifed by Thomas [T.K.O]
